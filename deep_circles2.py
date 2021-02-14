@@ -33,3 +33,15 @@ print('\n\nTest Ions', eval_result[0], 'Test Accuracy : ', eval_result[1])
 # plot_model(model, show_shapes=True, show_layer_names=True)
 
 # define Early stopping callbacks
+
+
+
+# Saving and restoring models
+
+# .save(filepath) - saves model to HDF5 file
+# .load_model(filepath) - loads model from HDF5 file
+
+# .model_to_json, .model_to_yaml - saves only model layer structural achitecture to json or yaml string
+# .model_from_json, .model_from_yalm - restores only model layer structural architecture from json or yaml string
+
+# .save_weights - saves only the model weights to hdf5, so do load_weights
