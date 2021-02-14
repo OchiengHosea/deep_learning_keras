@@ -6,6 +6,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
+from keras.callbacks import EarlyStopping
 
 model = Sequential()
 
@@ -16,7 +17,8 @@ model.add(Dense(4, activation="tanh", name='Hidden-2'))
 model.add(Dense(1, activation="sigmoid", name="Output_Layer"))
 model.summary()
 model.compile(Adam(lr=0.05), 'binary_crossentropy', metrics=['accuracy'])
-model.fit(X_train, y_train, epochs=100, verbose=1)
+my_callbacks = [EarlyStopping(monitor='val_accuracy', patience=5, mode=max)]
+model.fit(X_train, y_train, epochs=100, verbose=1, callbacks=my_callbacks, validation_data=(X_test, y_test))
 eval_result = model.evaluate(X_test, y_test)
 
 print('\n\nTest Ions', eval_result[0], 'Test Accuracy : ', eval_result[1])
@@ -26,6 +28,8 @@ print('\n\nTest Ions', eval_result[0], 'Test Accuracy : ', eval_result[1])
 # summary() - provides all the details of the model, the laters, shape of trainable parameters
 # plot_model model layer hirachy
 
-from keras.utils import plot_model
+# from keras.utils import plot_model
 
-plot_model(model, to_file='model.png', show_shapes=True, show_layer_names=True)
+# plot_model(model, show_shapes=True, show_layer_names=True)
+
+# define Early stopping callbacks
